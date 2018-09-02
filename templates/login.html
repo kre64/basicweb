@@ -8,8 +8,13 @@
 
 <body>
 
-<h1>Add login form</h1>
-<p>soon..</p>
+
+<form action = "{{ url_for('adduser') }}" method = "POST">
+	Username<br>
+	<input type="text" name="username">
+</form>
+
+
 
 <script src="{{ url_for('static', filename='js/login.js') }}"></script>
 </body>
