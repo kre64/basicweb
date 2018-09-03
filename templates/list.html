@@ -2,20 +2,22 @@
 <html>
 <!-- copy pasted stuff, clean up -->
 <head>
-<link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}">
-<title>LIST</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+<title>List of users</title>
 </head>
 
 	<body>
 	
 		<table border = 1>
 			<thead>
-				<td>username</td>
+				<td>Unique ID</td>
+				<td>Username</td>
 			</thead>
 			
 			{% for row in rows %}
 				<tr>
-					<td>{{row["username"]}}</td>
+					<td>{{row["id"]}}</td>
+					<td>{{row["name"]}}</td>
 				</tr>
 			{% endfor %}
 		</table>

@@ -2,12 +2,16 @@ import sqlite3
 conn = sqlite3.connect('users.db')
 c = conn.cursor()
 
+#c.execute("DROP TABLE users")
+
 # Create table
-c.execute('''CREATE TABLE users
-             (userid INTEGER, username TEXT, item TEXT)''')
+c.execute('''CREATE TABLE IF NOT EXISTS users (
+	id INTEGER PRIMARY KEY,
+	name TEXT
+	)''')
 
 # Insert a row of data
-c.execute("INSERT INTO users VALUES (0,'first user', 'an item')")
+c.execute("INSERT INTO users (name) VALUES ('first user')")
 
 # Save (commit) the changes
 conn.commit()
