@@ -3,21 +3,21 @@
 <!-- copy pasted stuff, clean up -->
 <head>
 <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-<title>List of users</title>
+<title>List of my items</title>
 </head>
 
 	<body>
 	
 		<table border = 1>
 			<thead>
-				<td>Unique ID</td>
-				<td>Username</td>
+				<td>My Items</td>
+				<td>Status</td>
 			</thead>
 			
 			{% for row in rows %}
 				<tr>
-					<td>{{row["id"]}}</td>
-					<td>{{row["name"]}}</td>
+					<td>{{row["item"]}}</td>
+					<td>{% if row["isdone"] == true %} Done {% else %} Not done {% endif %}</td>
 				</tr>
 			{% endfor %}
 		</table>

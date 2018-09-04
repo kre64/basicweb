@@ -12,10 +12,12 @@
 
 <h2>This page lets you manage your to-do list, what actions would you like to perform today?</h2>
 
-<a href = "#">Create new item(s).</a>
-<a href = "#">See your item(s).</a>
-<a href = "#">Mark item(s) as done.</a>
-<a href = "#">Delete item(s) altogether.</a>
+<a href="/mylist/create">Create new item(s).</a><br>
+<a href="/mylist/see">See your item(s).</a><br>
+<a href="/mylist/markdone">Mark item(s) as done.</a><br>
+<a href="/mylist/deleteitems">Delete item(s) altogether.</a><br>
+<br>
+<a href="/logout">Logout</a>
 
 
 <script src="{{ url_for('static', filename='js/mylist.js') }}"></script>

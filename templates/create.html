@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+<title>Login</title>
+</head>
+
+<body>
+
+
+<form action="{{ url_for('additem') }}" method="POST">
+	<h1>Please enter the item you wish to add to your list.</h1>
+	<input type="text" name="createitem" id="createitem" placeholder="Enter item to add create." required/>
+</form>
+
+
+
+<script src="{{ url_for('static', filename='js/login.js') }}"></script>
+</body>
+
+</html>
+
+<!--
+"{{ url_for('static', filename='file/path/javascript.js') }}"
+-->
