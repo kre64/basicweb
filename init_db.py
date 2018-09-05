@@ -1,3 +1,5 @@
+#Init two tables, insert 'first user' into each with some data.
+
 import sqlite3
 conn = sqlite3.connect('users.db')
 c = conn.cursor()
@@ -5,19 +7,19 @@ c = conn.cursor()
 c.execute("DROP TABLE IF EXISTS users")
 c.execute("DROP TABLE IF EXISTS lists")
 
-# create users table
+# Table of users
 c.execute('''CREATE TABLE IF NOT EXISTS users (
 	id INTEGER PRIMARY KEY,
 	name TEXT
 	)''')
 
-# unique id for names
+# To prevent duplicate usernames for users.
 c.execute("CREATE UNIQUE INDEX idx_username ON users (name)")
 
 # Insert a row of data into users
 c.execute("INSERT INTO users (name) VALUES ('first user')")
 
-# create lists table
+# Table of lists for users, x-ref with users table by name=uname?
 c.execute('''CREATE TABLE IF NOT EXISTS lists (
 	id INTEGER PRIMARY KEY,
 	uname TEXT,

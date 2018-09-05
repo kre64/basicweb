@@ -117,7 +117,7 @@ def additem():
 			return redirect(url_for('home'))
 			conn.close()
 
-#see users items
+# Get item list for user.
 @app.route('/mylist/see', methods=['GET', 'POST'])
 def see():
 	if 'logged_in' not in session:
@@ -143,7 +143,7 @@ def see():
 			return render_template('see.html', rows = rows)
 			conn.close()
 
-#entry form for marking items as done
+# Entry form for marking items as done.
 @app.route('/mylist/markdone')
 def markdone():
 	if 'logged_in' not in session:
@@ -151,7 +151,7 @@ def markdone():
 		return redirect(url_for('home'))
 	return render_template('markdone.html')
 
-#post method for adding new items
+# Check session username against db and update specified entry
 @app.route('/markitem', methods=['GET', 'POST'])
 def markitem():
 	if 'logged_in' not in session:
@@ -202,8 +202,8 @@ def deleteitem():
 			c.execute("DELETE FROM lists WHERE (uname) = (?) AND (item) = (?)", (current_user, target_item))
 			conn.commit()
 			msg = "Item successfully deleted"
+
 		except:
-			#There was an error
 			conn.rollback()
 			msg = "error in delete operation"
 
