@@ -1,5 +1,19 @@
 #!/bin/bash
 # Check for dependencies && start the flask app
+#
+# Required installs on machine.
+# Python3, pip3, pip install Flask
+# 
+# Incase script fails to work, run the following commands:
+# python init_db.py
+# flask run
+#
+# At this point the application should be running.
+#
+# python dbtest.py 
+# to print the current tables in 'users.db'
+
+
 
 if pip3 list | grep Flask; then
 	echo All dependencies met!
