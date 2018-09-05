@@ -4,8 +4,9 @@ import sqlite3
 conn = sqlite3.connect('users.db')
 c = conn.cursor()
 
-c.execute("DROP TABLE IF EXISTS users")
-c.execute("DROP TABLE IF EXISTS lists")
+# These commands can be called by "python killtables.py"
+#c.execute("DROP TABLE IF EXISTS users")
+#c.execute("DROP TABLE IF EXISTS lists")
 
 # Table of users
 c.execute('''CREATE TABLE IF NOT EXISTS users (
