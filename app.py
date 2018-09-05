@@ -1,17 +1,18 @@
 from flask import Flask, render_template, url_for, request, redirect, session, escape
 import sqlite3
+import os
 
 app = Flask(__name__)
-#Is this a bad key, look into good key generation?
+# Is this a bad key, look into good key generation?
 app.secret_key = b'1_#4ieFR\n\xec]'
 
-#Attempt connection to 'users.db'
+# Attempt connection to 'users.db'
 conn = sqlite3.connect('users.db')
 c = conn.cursor()
 print ("Opened database 'users.db' success.")
 conn.close()
 
-#homepage
+# Homepage
 @app.route('/')
 def home():
 	if 'username' in session:
@@ -19,7 +20,7 @@ def home():
 		return render_template('mylist.html', username = session['username'])
 	return render_template('home.html')
 
-#login page
+# Login page
 @app.route('/login/', methods=['GET'])
 def login():
 	if 'logged_in' in session:
@@ -27,14 +28,14 @@ def login():
 		return redirect(url_for('home'))
 	return render_template('login.html')
 
-#logout route
+# Logout route
 @app.route('/logout/', methods=['GET'])
 def logout():
     session.pop('username', None)
     session.pop('logged_in', None)
     return redirect(url_for('home'))
 
-#post method for adding users
+# Post method for adding users
 @app.route('/adduser/', methods=['GET', 'POST'])
 def adduser():
 	if 'logged_in' in session:
@@ -60,8 +61,8 @@ def adduser():
 			return redirect(url_for('home'))
 			conn.close()
 
-#public display of user.db
-#for testing purposes of course :)
+# Public display of user.db
+# For testing purposes of course :)
 @app.route('/list/', methods=['GET', 'POST'])
 def list():
 	conn = sqlite3.connect('users.db')
@@ -74,7 +75,7 @@ def list():
 	return render_template('list.html', rows = rows)
 	conn.close()
 
-#user profile page
+# User profile page
 @app.route('/mylist/', methods=['GET', 'POST'])
 def mylist():
 	if 'logged_in' not in session:
@@ -82,7 +83,7 @@ def mylist():
 		return redirect(url_for('home'))
 	return render_template('mylist.html')
 
-#entry form for creating items
+# Entry form for creating items
 @app.route('/mylist/create', methods=['GET'])
 def create():
 	if 'logged_in' not in session:
@@ -90,7 +91,7 @@ def create():
 		return redirect(url_for('home'))
 	return render_template('create.html')
 
-#post method for adding new items
+# Post method for adding new items
 @app.route('/additem', methods=['GET', 'POST'])
 def additem():
 	if 'logged_in' not in session:
@@ -151,7 +152,7 @@ def markdone():
 		return redirect(url_for('home'))
 	return render_template('markdone.html')
 
-# Check session username against db and update specified entry
+# Check session username against db and update specified entry.
 @app.route('/markitem', methods=['GET', 'POST'])
 def markitem():
 	if 'logged_in' not in session:
@@ -177,7 +178,7 @@ def markitem():
 			conn.close()
 
 
-#entry form for deleting items
+# Entry form for deleting items.
 @app.route('/mylist/deleteitems')
 def deleteitems():
 	if 'logged_in' not in session:
@@ -185,7 +186,7 @@ def deleteitems():
 		return redirect(url_for('home'))
 	return render_template('delete.html')
 
-#post method for deleting items
+# Post method for deleting items.
 @app.route('/deleteitem', methods=['GET', 'POST'])
 def deleteitem():
 	if 'logged_in' not in session:
@@ -213,4 +214,5 @@ def deleteitem():
 			conn.close()
 
 if __name__ == '__main__':
+	port = int(os.environ.get("PORT", 5000))
 	app.run(host = '0.0.0.0')

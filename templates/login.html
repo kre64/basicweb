@@ -8,13 +8,10 @@
 
 <body>
 
-
 <form action="{{ url_for('adduser') }}" method="POST">
-	<h1>Please enter your username to continue</h1>
+	<h1>Please enter your username and then hit ENTER to continue.</h1>
 	<input type="text" name="username" id="username" placeholder="Username" required/>
 </form>
-
-
 
 <script src="{{ url_for('static', filename='js/login.js') }}"></script>
 </body>
