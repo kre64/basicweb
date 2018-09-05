@@ -1,4 +1,5 @@
 #!/bin/bash
+# usage: run "./start.sh" on a UNIX machine
 # Check for dependencies && start the flask app
 #
 # Required installs on machine.
