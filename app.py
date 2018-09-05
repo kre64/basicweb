@@ -2,12 +2,13 @@ from flask import Flask, render_template, url_for, request, redirect, session, e
 import sqlite3
 
 app = Flask(__name__)
-app.secret_key = b'1_#4ieFR\n\xec]' #bad key
+#Is this a bad key, look into good key generation?
+app.secret_key = b'1_#4ieFR\n\xec]'
 
-#create_connection to 'users.db'
+#Attempt connection to 'users.db'
 conn = sqlite3.connect('users.db')
 c = conn.cursor()
-print ("Opened 'users.db' success")
+print ("Opened database 'users.db' success.")
 conn.close()
 
 #homepage
@@ -46,18 +47,14 @@ def adduser():
 		try:
 			c.execute("INSERT INTO users (name) VALUES(?)",(username,))
 			conn.commit()
-			msg = "Record successfully added"
+			msg = "Record successfully added."
 				
 		except:
-			#There was an error
 			conn.rollback()
-			msg = "error in insert operation, or user already exists"
+			msg = "Error in insert operation, or user already exists."
 
 		finally:
 			print(msg)
-			#resp =  make_response(render_template('home.html'))
-			#resp.set_cookie('username', username)
-			#return resp
 			session['username'] = request.form['username']
 			session['logged_in']=True
 			return redirect(url_for('home'))
@@ -83,8 +80,6 @@ def mylist():
 	if 'logged_in' not in session:
 		print("A user is not logged in")
 		return redirect(url_for('home'))
-	#username = request.cookies.get('username')
-
 	return render_template('mylist.html')
 
 #entry form for creating items
@@ -112,8 +107,8 @@ def additem():
 			c.execute("INSERT INTO lists (uname, item, isdone) VALUES (?, ?, ?)",(current_user, new_item, status))
 			conn.commit()
 			msg = "Item successfully added"
+
 		except:
-			#There was an error
 			conn.rollback()
 			msg = "error in insert operation"
 
@@ -130,27 +125,21 @@ def see():
 		return redirect(url_for('home'))
 	if request.method == 'GET':
 		current_user = session['username']
-
 		conn = sqlite3.connect('users.db')
 		conn.row_factory = sqlite3.Row
 		c = conn.cursor()
-		#check if username already exists
+
 		try:
-			#username = request.form['username']
 			c.execute("SELECT * FROM lists WHERE uname LIKE (?)", (current_user,))
 			rows = c.fetchall()
-			msg = "success"
+			msg = "Search for user list was successfull."
 				
 		except:
-			#There was an error
-			msg = "fail"
+			msg = "Error in search."
 			conn.rollback()
 
 		finally:
 			print(msg)
-			#resp =  make_response(render_template('home.html'))
-			#resp.set_cookie('username', username)
-			#return resp
 			return render_template('see.html', rows = rows)
 			conn.close()
 
@@ -177,11 +166,10 @@ def markitem():
 		try:
 			c.execute("UPDATE lists SET isdone = 1 WHERE (uname) = (?) AND (item) = (?)", (current_user, target_item))
 			conn.commit()
-			msg = "Item successfully updated"
+			msg = "Item successfully updated."
 		except:
-			#There was an error
 			conn.rollback()
-			msg = "error in update operation"
+			msg = "Error in update operation."
 
 		finally:
 			print(msg)
@@ -193,7 +181,7 @@ def markitem():
 @app.route('/mylist/deleteitems')
 def deleteitems():
 	if 'logged_in' not in session:
-		print("A user is not logged in")
+		print("A user is not logged in.")
 		return redirect(url_for('home'))
 	return render_template('delete.html')
 
@@ -224,8 +212,5 @@ def deleteitem():
 			return redirect(url_for('home'))
 			conn.close()
 
-#what does this actually do?
 if __name__ == '__main__':
-	app.run()
-
-#add threaded, os stuff
+	app.run(host = '0.0.0.0')
