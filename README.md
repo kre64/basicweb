@@ -10,8 +10,8 @@ Installation
 0. Clone the repo
 1. On a UNIX machine, run "./start.sh" to check for dependencies && run the application.
 2. Non-UNIX machines.
-   * python init_db.py // Initialize the database file with initial tables
-   * flask run         // Start the Flask application.
+   1. python init_db.py // Initialize the database file with initial tables
+   2. flask run         // Start the Flask application.
 
 
 
