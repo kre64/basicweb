@@ -1,4 +1,4 @@
-# basicweb
+# BasicWeb
 Very basic web programming example, some topics covered html, http, sql-lite, session &amp; cookies, basic web framework.
 
 Required Dependencies
@@ -9,9 +9,9 @@ Installation
 =====
 0. Clone the repo
 1. On a UNIX machine, run "./start.sh" to check for dependencies && run the application.
-2. Non-UNIX machines, 
-   *python init_db.py // Initialize the database file with initial tables
-   *flask run         // Start the Flask application.
+2. Non-UNIX machines.
+   * python init_db.py // Initialize the database file with initial tables
+   * flask run         // Start the Flask application.
 
 
 
